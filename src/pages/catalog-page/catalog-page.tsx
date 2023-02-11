@@ -7,8 +7,12 @@ import Pagination from '../../components/pagination/pagination';
 import ProductCardList from '../../components/product-card-list/product-card-list';
 import SvgCollection from '../../components/svg-collection/svg-collection';
 import Header from '../../layouts/header/header';
+import { useAppSelector } from '../../hooks';
+import { getCameras } from '../../store/cameras/selectors';
 
 function CatalogPage(): JSX.Element {
+  const cameras = useAppSelector(getCameras);
+
   return (
     <React.Fragment>
       <SvgCollection />
@@ -29,7 +33,8 @@ function CatalogPage(): JSX.Element {
                       </svg>
                     </a>
                   </li>
-                  <li className="breadcrumbs__item"><span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>
+                  <li className="breadcrumbs__item">
+                    <span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>
                   </li>
                 </ul>
               </div>
@@ -43,7 +48,7 @@ function CatalogPage(): JSX.Element {
                     <CatalogFilters />
                   </div>
                   <CatalogSort />
-                  <ProductCardList />
+                  <ProductCardList cameras={cameras} />
 
                   <Pagination />
 
