@@ -22,6 +22,10 @@ function App(): JSX.Element {
           element={<CatalogPage />}
         />
         <Route
+          path={`${AppRoute.Root}/catalog/page_:page`}
+          element={<CatalogPage />}
+        />
+        <Route
           path={`${AppRoute.Camera}/:id`}
           element={<CatalogPage />}
         />

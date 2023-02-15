@@ -12,16 +12,16 @@ function ProductCard({ camera }: ProductCardProps): JSX.Element {
 
   const priceWithSpace = getPriceWithSpace(price);
 
-  const [fullStars] = useState(Array.from({ length: rating }).map((item, index) => index));
+  const [fullStars] = useState(Array.from({ length: rating }).map((_, index) => index));
 
-  const [emptyStars] = useState(Array.from({ length: MAX_RATING - rating }).map((item, index) => index));
+  const [emptyStars] = useState(Array.from({ length: MAX_RATING - rating }).map((_, index) => index));
 
   return (
     <div className="product-card">
       <div className="product-card__img">
         <picture>
-          <source type="image/webp" srcSet={`${previewImgWebp}, ${previewImgWebp2x}`} />
-          <img src={previewImg} srcSet={`${previewImg2x} 2x`} width="280" height="240" alt={name} />
+          <source type="image/webp" srcSet={`/${previewImgWebp}, /${previewImgWebp2x}`} />
+          <img src={`/${previewImg}`} srcSet={`/${previewImg2x} 2x`} width="280" height="240" alt={name} />
         </picture>
       </div>
       <div className="product-card__info">

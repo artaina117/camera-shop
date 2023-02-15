@@ -5,3 +5,4 @@ import { State } from '../../types/state';
 
 export const getCameras = (state: State): Camera[] => state[NameSpace.Cameras].cameras;
 export const getPromo = (state: State): Promo => state[NameSpace.Cameras].promo;
+export const getCamerasByPage = (state: State): Camera[] => state[NameSpace.Cameras].camerasByPage;

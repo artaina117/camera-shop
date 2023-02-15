@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Banner from '../../components/banner/banner';
 import CatalogFilters from '../../components/catalog-filters/catalog-filters';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
@@ -7,11 +7,23 @@ import Pagination from '../../components/pagination/pagination';
 import ProductCardList from '../../components/product-card-list/product-card-list';
 import SvgCollection from '../../components/svg-collection/svg-collection';
 import Header from '../../layouts/header/header';
-import { useAppSelector } from '../../hooks';
-import { getCameras } from '../../store/cameras/selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getCameras, getCamerasByPage } from '../../store/cameras/selectors';
+import { useParams } from 'react-router-dom';
+import { fetchCamerasByPageAction } from '../../store/cameras/api-actions';
 
 function CatalogPage(): JSX.Element {
-  const cameras = useAppSelector(getCameras);
+  const dispatch = useAppDispatch();
+
+  const amountOfCameras = useAppSelector(getCameras).length;
+  const currentCameras = useAppSelector(getCamerasByPage);
+  const { page } = useParams();
+
+  const currentPage = Number(page ? page : 1);
+
+  useEffect(() => {
+    dispatch(fetchCamerasByPageAction(currentPage));
+  }, [currentPage, dispatch]);
 
   return (
     <React.Fragment>
@@ -48,9 +60,9 @@ function CatalogPage(): JSX.Element {
                     <CatalogFilters />
                   </div>
                   <CatalogSort />
-                  <ProductCardList cameras={cameras} />
+                  <ProductCardList cameras={currentCameras} />
 
-                  <Pagination />
+                  <Pagination amountOfCameras={amountOfCameras} currentPage={currentPage} />
 
                 </div>
               </div>
