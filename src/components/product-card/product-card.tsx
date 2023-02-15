@@ -20,8 +20,8 @@ function ProductCard({ camera }: ProductCardProps): JSX.Element {
     <div className="product-card">
       <div className="product-card__img">
         <picture>
-          <source type={previewImgWebp} srcSet={`${previewImgWebp}, ${previewImgWebp2x}`} />
-          <img src={previewImg} srcSet={previewImg2x} width="280" height="240" alt={name} />
+          <source type="image/webp" srcSet={`${previewImgWebp}, ${previewImgWebp2x}`} />
+          <img src={previewImg} srcSet={`${previewImg2x} 2x`} width="280" height="240" alt={name} />
         </picture>
       </div>
       <div className="product-card__info">
