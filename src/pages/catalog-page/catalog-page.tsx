@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCameras, getCamerasByPage } from '../../store/cameras/selectors';
 import { useParams } from 'react-router-dom';
 import { fetchCamerasByPageAction } from '../../store/cameras/api-actions';
+import Breadcrumbs from '../../layouts/breadcrumbs/breadcrumbs';
 
 function CatalogPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -35,22 +36,7 @@ function CatalogPage(): JSX.Element {
           <Banner />
 
           <div className="page-content">
-            <div className="breadcrumbs">
-              <div className="container">
-                <ul className="breadcrumbs__list">
-                  <li className="breadcrumbs__item">
-                    <a className="breadcrumbs__link" href="index.html">Главная
-                      <svg width="5" height="8" aria-hidden="true">
-                        <use xlinkHref="#icon-arrow-mini"></use>
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="breadcrumbs__item">
-                    <span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <Breadcrumbs />
 
             <section className="catalog">
               <div className="container">

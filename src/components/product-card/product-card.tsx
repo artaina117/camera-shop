@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute, MAX_RATING } from '../../const';
+import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 import { getPriceWithSpace } from '../../utils';
+import RatingStars from '../rating-stars/rating-stars';
 
 type ProductCardProps = {
   camera: Camera;
@@ -12,10 +12,6 @@ function ProductCard({ camera }: ProductCardProps): JSX.Element {
   const { id, name, price, reviewCount, rating, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x } = camera;
 
   const priceWithSpace = getPriceWithSpace(price);
-
-  const [fullStars] = useState(Array.from({ length: rating }).map((_, index) => index));
-
-  const [emptyStars] = useState(Array.from({ length: MAX_RATING - rating }).map((_, index) => index));
 
   return (
     <div className="product-card">
@@ -27,16 +23,7 @@ function ProductCard({ camera }: ProductCardProps): JSX.Element {
       </div>
       <div className="product-card__info">
         <div className="rate product-card__rate">
-          {fullStars.map((item) => (
-            <svg width="17" height="16" aria-hidden="true" key={item}>
-              <use xlinkHref="#icon-full-star"></use>
-            </svg>
-          ))}
-          {emptyStars.map((item) => (
-            <svg width="17" height="16" aria-hidden="true" key={item}>
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          ))}
+          <RatingStars rating={rating} />
           <p className="visually-hidden">Рейтинг: {rating}</p>
           <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviewCount}</p>
         </div>

@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, TabNames } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import CatalogPage from '../../pages/catalog-page/catalog-page';
+import ProductPage from '../../pages/product-page/product-page';
 import { fetchCamerasAction, fetchPromosAction } from '../../store/cameras/api-actions';
 
 function App(): JSX.Element {
@@ -27,7 +28,15 @@ function App(): JSX.Element {
         />
         <Route
           path={`${AppRoute.Camera}/:id`}
-          element={<CatalogPage />}
+          element={<ProductPage tabName={TabNames.Description} />}
+        />
+        <Route
+          path={`${AppRoute.Camera}/:id/description`}
+          element={<ProductPage tabName={TabNames.Description} />}
+        />
+        <Route
+          path={`${AppRoute.Camera}/:id/characteristics`}
+          element={<ProductPage tabName={TabNames.Characteristics} />}
         />
       </Routes>
     </BrowserRouter>

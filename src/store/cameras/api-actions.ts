@@ -41,3 +41,15 @@ export const fetchCamerasByPageAction = createAsyncThunk<Camera[], number, {
     return data;
   },
 );
+
+export const fetchCurrentCameraAction = createAsyncThunk<Camera, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchCurrentCamera',
+  async (id, { extra: api }) => {
+    const { data } = await api.get<Camera>(`${APIRoute.Cameras}/${id}`);
+    return data;
+  },
+);

@@ -15,11 +15,7 @@ export enum APIRoute {
   Promo = '/promo',
 }
 
-export const emptyPromo = {
-  id: 0,
-  name: '',
-  previewImg: '',
-  previewImg2x: '',
-  previewImgWebp: '',
-  previewImgWebp2x: '',
-};
+export enum TabNames {
+  Description = 'description',
+  Characteristics = 'characteristics',
+}
