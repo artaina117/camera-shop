@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { MAX_RATING } from '../../const';
+import { Link } from 'react-router-dom';
+import { AppRoute, MAX_RATING } from '../../const';
 import { Camera } from '../../types/camera';
 import { getPriceWithSpace } from '../../utils';
 
@@ -8,7 +9,7 @@ type ProductCardProps = {
 };
 
 function ProductCard({ camera }: ProductCardProps): JSX.Element {
-  const { name, price, reviewCount, rating, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x } = camera;
+  const { id, name, price, reviewCount, rating, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x } = camera;
 
   const priceWithSpace = getPriceWithSpace(price);
 
@@ -45,7 +46,7 @@ function ProductCard({ camera }: ProductCardProps): JSX.Element {
       </div>
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button">Купить</button>
-        <a className="btn btn--transparent" href="#">Подробнее</a>
+        <Link className="btn btn--transparent" to={`${AppRoute.Camera}/${id}`}>Подробнее</Link>
       </div>
     </div>
   );
