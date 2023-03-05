@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { CamerasSlice } from '../../types/state';
-import { fetchCamerasAction, fetchCamerasByPageAction, fetchCurrentCameraAction, fetchPromosAction } from './api-actions';
+import { fetchCamerasAction, fetchCamerasByPageAction, fetchCurrentCameraAction, fetchPromosAction, fetchSimilarCamerasAction } from './api-actions';
 import { emptyCamera, emptyPromo } from './const';
 
 const initialState: CamerasSlice = {
   cameras: [],
+  similarCameras: [],
   promo: emptyPromo,
   camerasByPage: [],
   currentCamera: emptyCamera,
@@ -28,6 +29,9 @@ export const camerasSlice = createSlice({
       })
       .addCase(fetchCurrentCameraAction.fulfilled, (state, action) => {
         state.currentCamera = action.payload;
+      })
+      .addCase(fetchSimilarCamerasAction.fulfilled, (state, action) => {
+        state.similarCameras = action.payload;
       });
   }
 });

@@ -1,5 +1,6 @@
 export const AMOUNT_OF_CARDS_ON_PAGE = 9;
 export const MAX_RATING = 5;
+export const MAX_AMOUNT_OF_REVIEWS = 3;
 
 export enum AppRoute {
   Root = '/',
@@ -8,6 +9,7 @@ export enum AppRoute {
 
 export enum NameSpace {
   Cameras = 'CAMERAS',
+  Reviews = 'REVIEWS',
 }
 
 export enum APIRoute {

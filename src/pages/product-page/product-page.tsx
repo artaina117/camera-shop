@@ -1,40 +1,53 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import RatingStars from '../../components/rating-stars/rating-stars';
 import SvgCollection from '../../components/svg-collection/svg-collection';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Footer from '../../layouts/footer/footer';
 import Header from '../../layouts/header/header';
-import { fetchCurrentCameraAction } from '../../store/cameras/api-actions';
-import { getCurrentCamera } from '../../store/cameras/selectors';
+import { fetchCurrentCameraAction, fetchSimilarCamerasAction } from '../../store/cameras/api-actions';
+import { getCurrentCamera, getSimilarCameras } from '../../store/cameras/selectors';
 import { getPriceWithSpace } from '../../utils';
 import cn from 'classnames';
 import SimilarProducts from '../../components/similar-products/similar-products';
 import ReviewList from '../../components/review-list/review-list';
 import { AppRoute, TabNames } from '../../const';
 import Breadcrumbs from '../../layouts/breadcrumbs/breadcrumbs';
+import { fetchReviewsAction } from '../../store/reviews/api-actions';
+import { getReviews } from '../../store/reviews/selectors';
 
 type ProductPageProps = {
   tabName: string;
 };
 
-function ProductPage({tabName}: ProductPageProps): JSX.Element {
+function ProductPage({ tabName }: ProductPageProps): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
 
   const currentCamera = useAppSelector(getCurrentCamera);
+  const similarCameras = useAppSelector(getSimilarCameras);
+  const reviews = useAppSelector(getReviews);
   const { name, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, price, reviewCount, description, rating, vendorCode, type, category, level } = currentCamera;
 
   const priceWithSpace = getPriceWithSpace(price);
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const buttonUpHandler = () => {
+    if (wrapperRef.current) {
+      wrapperRef.current.scrollIntoView({behavior: 'smooth'});
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchCurrentCameraAction(Number(id)));
+    dispatch(fetchSimilarCamerasAction(Number(id)));
+    dispatch(fetchReviewsAction(Number(id)));
   }, [id, dispatch]);
 
   return (
     <React.Fragment>
       <SvgCollection />
-      <div className="wrapper">
+      <div className="wrapper" ref={wrapperRef}>
         <Header />
 
         <main>
@@ -98,15 +111,15 @@ function ProductPage({tabName}: ProductPageProps): JSX.Element {
               </section>
             </div>
 
-            <SimilarProducts />
-            <ReviewList />
+            {similarCameras.length && <SimilarProducts similarCameras={similarCameras} />}
+            <ReviewList reviews={reviews} />
           </div>
         </main>
-        <a className="up-btn" href="#header">
+        <button className="up-btn" onClick={buttonUpHandler}>
           <svg width="12" height="18" aria-hidden="true">
             <use xlinkHref="#icon-arrow2"></use>
           </svg>
-        </a>
+        </button>
 
         <Footer />
       </div>

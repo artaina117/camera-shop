@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../hooks';
 import CatalogPage from '../../pages/catalog-page/catalog-page';
 import ProductPage from '../../pages/product-page/product-page';
 import { fetchCamerasAction, fetchPromosAction } from '../../store/cameras/api-actions';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ function App(): JSX.Element {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route
           path={AppRoute.Root}

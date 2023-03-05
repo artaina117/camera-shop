@@ -3,18 +3,20 @@ import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 import { getPriceWithSpace } from '../../utils';
 import RatingStars from '../rating-stars/rating-stars';
+import cn from 'classnames';
 
 type ProductCardProps = {
   camera: Camera;
+  isActive?: boolean;
 };
 
-function ProductCard({ camera }: ProductCardProps): JSX.Element {
+function ProductCard({ camera, isActive }: ProductCardProps): JSX.Element {
   const { id, name, price, reviewCount, rating, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x } = camera;
 
   const priceWithSpace = getPriceWithSpace(price);
 
   return (
-    <div className="product-card">
+    <div className={cn('product-card', {'is-active': isActive})}>
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`/${previewImgWebp}, /${previewImgWebp2x}`} />
@@ -28,8 +30,7 @@ function ProductCard({ camera }: ProductCardProps): JSX.Element {
           <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviewCount}</p>
         </div>
         <p className="product-card__title">{name}</p>
-        <p className="product-card__price"><span className="visually-hidden">Цена:</span>{priceWithSpace} ₽
-        </p>
+        <p className="product-card__price"><span className="visually-hidden">Цена:</span>{priceWithSpace} ₽</p>
       </div>
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button">Купить</button>
