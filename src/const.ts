@@ -5,6 +5,7 @@ export const MAX_AMOUNT_OF_REVIEWS = 3;
 export enum AppRoute {
   Root = '/',
   Camera = '/catalog/cameras',
+  NotFound = '/*',
 }
 
 export enum NameSpace {
@@ -15,6 +16,7 @@ export enum NameSpace {
 export enum APIRoute {
   Cameras = '/cameras',
   Promo = '/promo',
+  Reviews = '/reviews',
 }
 
 export enum TabNames {
